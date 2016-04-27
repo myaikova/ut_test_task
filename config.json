@@ -1,0 +1,13 @@
+{
+  "live": {
+    "host": "https://buggy.auroraplatform.com",
+    "user": "new.user@domain.com",
+    "password": "lalala"
+  },
+  "test": {
+
+  },
+  "develop": {
+
+  }
+}

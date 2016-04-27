@@ -9,10 +9,8 @@ class Helper:
 
     def login(self):
         self.open_url(self.app.host + '/login')
-        login = 'maria.yaikova@gmail.com'
-        password = 'gjvbljh'
-        self.fill_field('email', login)
-        self.fill_field('password', password)
+        self.fill_field('email', self.app.user)
+        self.fill_field('password', self.app.password)
         self.click_button_xpath('//div/div/form/div[2]/button')
 
     def logout(self):
@@ -38,11 +36,15 @@ class Helper:
     def click_button_xpath(self, button_path):
         self.app.wd.find_element_by_xpath(button_path).click()
 
+    def click_button_css(self, css):
+        self.app.wd.find_element_by_css_selector(css).click()
+
     def reload_page(self):
-        self.app.wd.navigate().refresh()
+        self.app.wd.refresh()
 
-    def confirm_alert(self):
-        self.app.wd.switch_to_alert().accept()
+    def warning_shown(self):
+        return len(self.app.wd.find_elements_by_css_selector('div.alert.alert-warning')) == 1
 
-    def decline_alert(self):
-        self.app.wd.switch_to_alert().dismiss()
+    def error_shown(self):
+        element = self.app.wd.find_elements_by_css_selector('div.form-group.has-error')
+        return len(element) == 1 and len(element[0].find_elements_by_css_selector('p.help-block')) == 1
